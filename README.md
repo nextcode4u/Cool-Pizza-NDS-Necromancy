@@ -15,7 +15,7 @@ continues separately with a focus on preserving the original experience.
   <img src="docs/screenshots/gameplay.png" alt="Cool Pizza DS airborne combat with an air combo" width="256" />
 </p>
 
-Screenshots show the original reconstruction that forms the gameplay baseline.
+Captured in melonDS from the Necromancy baseline build.
 
 ## Gameplay baseline
 
