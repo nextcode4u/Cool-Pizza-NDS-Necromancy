@@ -41,6 +41,13 @@ credits Tettix's soundtrack and describes the original game.
 The original iOS game used Unity, 2D Toolkit and iTween. This homebrew project
 implements the DS runtime in C and prepares its assets from version 1.4.
 
+## Project lineage
+
+Cool Pizza: Necromancy builds on the
+[Cool Pizza DS reconstruction](https://github.com/nextcode4u/Cool-Pizza-NDS-).
+The original reconstruction focuses on the iOS game; this project develops new
+features and content.
+
 ## Original assets
 
 Original game assets retain the rights and attribution of their creators.

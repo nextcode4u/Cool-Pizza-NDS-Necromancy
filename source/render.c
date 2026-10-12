@@ -263,6 +263,7 @@ void game_render_bottom(const Game *g, unsigned short *pixels) {
   for (int i = 0; i < 256 * 192; i++)
     fb[i] = BLACK;
   text(15, 14, "COOL PIZZA", PINK, 3);
+  text(91, 43, "NECROMANCY", LIME, 1);
   if (g->phase == INTRO) {
     text(77, 124, "A / TAP: NEXT", WHITE, 1);
     return;

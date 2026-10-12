@@ -1,6 +1,6 @@
 # Runtime architecture
 
-Cool Pizza DS is an ARM9 C application using devkitPro's bundled ARM7 runtime.
+Cool Pizza: Necromancy is an ARM9 C application using devkitPro's bundled ARM7 runtime.
 Game data is compiled into C tables; PCM audio is packed into NitroFS.
 
 ## Components
@@ -42,7 +42,7 @@ Music streams from NitroFS through maxmod. Mono effects are loaded into a cache
 and mixed with stereo music. A separate voice carries the fly buzzing loop.
 
 `source/save.c` stores best score and play count in a checksum-protected record
-at `fat:/coolpizza.stats` when writable FAT storage is available.
+at `fat:/coolpizza-necromancy.stats` when writable FAT storage is available.
 
 ## Related documentation
 

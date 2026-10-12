@@ -11,7 +11,7 @@ int save_init(Game *g) {
   available = access("fat:/", F_OK) == 0 || fatInitDefault();
   if (!available)
     return 0;
-  FILE *f = fopen("fat:/coolpizza.stats", "rb");
+  FILE *f = fopen("fat:/coolpizza-necromancy.stats", "rb");
   if (!f)
     return 1;
   Stats s;
@@ -30,11 +30,11 @@ void save_stats(const Game *g) {
     return;
   Stats s = {0x34315043u, (uint32_t)g->best, (uint32_t)g->plays, 0};
   s.check = s.magic ^ s.best ^ s.plays ^ 0x51da9267u;
-  FILE *f = fopen("fat:/coolpizza.stats.tmp", "wb");
+  FILE *f = fopen("fat:/coolpizza-necromancy.stats.tmp", "wb");
   if (!f)
     return;
   int valid = fwrite(&s, sizeof s, 1, f) == 1;
   valid = fclose(f) == 0 && valid;
   if (valid)
-    rename("fat:/coolpizza.stats.tmp", "fat:/coolpizza.stats");
+    rename("fat:/coolpizza-necromancy.stats.tmp", "fat:/coolpizza-necromancy.stats");
 }

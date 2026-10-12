@@ -5,12 +5,12 @@ ifeq ($(strip $(DEVKITARM)),)
 $(error Please set DEVKITARM to your devkitARM installation)
 endif
 
-GAME_TITLE     := Cool Pizza DS
-GAME_SUBTITLE1 := Reconstruction prototype
+GAME_TITLE     := Cool Pizza Necromancy
+GAME_SUBTITLE1 := Expanded homebrew edition
 GAME_SUBTITLE2 := Original by Secret Library
 include $(DEVKITARM)/ds_rules
 
-TARGET   := coolpizza
+TARGET   := coolpizza-necromancy
 BUILD    := build
 SOURCES  := source
 INCLUDES := include

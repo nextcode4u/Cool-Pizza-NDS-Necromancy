@@ -1,12 +1,12 @@
-# Cool Pizza DS
+# Cool Pizza: Necromancy
 
-A Nintendo DS homebrew reconstruction of **Cool Pizza**, the 2012 iOS game by
-**Secret Library**. Based on version 1.4, with the original artwork, music,
-enemy animations and wave layouts.
+An expanded Nintendo DS homebrew project built on **Cool Pizza**, the 2012 iOS
+game by **Secret Library**. Necromancy is a place to develop new mechanics,
+content and improvements around the original game's haunted-skateboard combat.
 
-Ride a haunted skateboard through the underworld, launch from ramps and swing
-your board at airborne enemies. Chain kills to stay in the air, build your combo
-and charge the ghost's powers.
+The starting game includes the version 1.4 artwork, music, enemies and wave
+layouts. The [original reconstruction](https://github.com/nextcode4u/Cool-Pizza-NDS-)
+continues separately with a focus on preserving the original experience.
 
 ## Screenshots
 
@@ -15,9 +15,9 @@ and charge the ghost's powers.
   <img src="docs/screenshots/gameplay.png" alt="Cool Pizza DS airborne combat with an air combo" width="256" />
 </p>
 
-Captured in melonDS from the release ROM.
+Screenshots show the original reconstruction that forms the gameplay baseline.
 
-## Features
+## Gameplay baseline
 
 - Original 42-wave progression, with an extra tutorial on the first three runs.
 - Bombing eyes, tracking sweepers, striking hands, flies and pyramids.
@@ -27,9 +27,9 @@ Captured in melonDS from the release ROM.
 
 ## Play
 
-Download [coolpizza.nds from the latest release](https://github.com/nextcode4u/Cool-Pizza-NDS-/releases/latest/download/coolpizza.nds).
+Build `coolpizza-necromancy.nds` using the instructions below.
 
-Open `coolpizza.nds` in melonDS using standard DS mode and direct boot, or load
+Open `coolpizza-necromancy.nds` in melonDS using standard DS mode and direct boot, or load
 it through a DS homebrew flashcart. Music and effects are embedded in the ROM.
 
 ### melonDS Android
@@ -54,7 +54,7 @@ off** (direct boot).
 | A / tap / Start / B during intro | Skip the current splash |
 
 Landing resets the air combo. An unshielded hazard hit ends the run.
-Best score and play count use `fat:/coolpizza.stats` when writable FAT/DLDI
+Best score and play count use `fat:/coolpizza-necromancy.stats` when writable FAT/DLDI
 storage is available; otherwise they are kept for the current session.
 
 ## Build
@@ -64,8 +64,8 @@ Install devkitPro's Nintendo DS development tools, then build directly from a
 fresh clone:
 
 ```sh
-git clone https://github.com/nextcode4u/Cool-Pizza-NDS-.git
-cd Cool-Pizza-NDS-
+git clone https://github.com/nextcode4u/Cool-Pizza-NDS-Necromancy.git
+cd Cool-Pizza-NDS-Necromancy
 export DEVKITPRO=/opt/devkitpro
 export DEVKITARM="$DEVKITPRO/devkitARM"
 make -j2
@@ -74,12 +74,18 @@ make -j2
 See [the build guide](docs/build.md) for dependencies and optional asset
 regeneration. An IPA, soundtrack download or emulator is not needed to build.
 
-Output: `coolpizza.nds`.
+Output: `coolpizza-necromancy.nds`.
+
+## Development
+
+Necromancy welcomes new enemies, waves, powers, control options and presentation
+improvements. See [project direction](docs/direction.md) for the development
+scope and [contributing](CONTRIBUTING.md) for build and test commands.
 
 ## Documentation
 
 - [Build guide](docs/build.md)
-- [Gameplay and DS behavior](docs/fidelity.md)
+- [Gameplay baseline](docs/fidelity.md)
 - [Asset formats and conversion](docs/recovery.md)
 - [Runtime architecture](docs/reconstruction.md)
 - [Testing](docs/emulator-testing.md)

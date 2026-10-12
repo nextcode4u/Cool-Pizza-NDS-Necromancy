@@ -1,4 +1,4 @@
-# Building Cool Pizza DS
+# Building Cool Pizza: Necromancy
 
 The repository includes all prepared graphics, game data, music and effects.
 A normal build requires the Nintendo DS toolchain and Make. No original IPA,
@@ -15,15 +15,15 @@ The commands below use `/opt/devkitpro`. Adjust the SDK paths for your installat
 ## Clone and compile
 
 ```sh
-git clone https://github.com/nextcode4u/Cool-Pizza-NDS-.git
-cd Cool-Pizza-NDS-
+git clone https://github.com/nextcode4u/Cool-Pizza-NDS-Necromancy.git
+cd Cool-Pizza-NDS-Necromancy
 export DEVKITPRO=/opt/devkitpro
 export DEVKITARM="$DEVKITPRO/devkitARM"
 make -j2
 ```
 
-Output: `coolpizza.nds`. Music and effects are embedded through NitroFS.
-The build also produces `coolpizza.elf` and intermediate files under `build/`.
+Output: `coolpizza-necromancy.nds`. Music and effects are embedded through NitroFS.
+The build also produces `coolpizza-necromancy.elf` and intermediate files under `build/`.
 
 For a clean rebuild, run from the repository root:
 

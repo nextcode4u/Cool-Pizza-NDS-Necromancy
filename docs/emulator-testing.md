@@ -46,8 +46,10 @@ The `layout` target supplies offsets for reading game state through the debugger
 
 The emulator argument can point to another extracted Linux AppImage bundle.
 `--display :93` is the default; select another display when needed.
-The script expects DS BIOS/firmware files under
-`Downloads/melonDS-1.1-windows-x86_64/` and copies them into its test configuration.
+By default, the script reads DS BIOS/firmware files from
+`Downloads/melonDS-1.1-windows-x86_64/`. Use `--bios-dir /path/to/bios` to reuse
+another local directory containing `biosnds7.bin`, `biosnds9.bin` and
+`dsfirmware.bin`. The files are copied into the isolated test configuration.
 
 | Test keyboard key | DS input |
 | --- | --- |

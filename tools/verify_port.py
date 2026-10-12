@@ -41,10 +41,10 @@ class Remote:
     def close(self):self.s.close()
 
 def main():
-    args=argparse.ArgumentParser();args.add_argument('emulator',type=Path);args.add_argument('--display',default=':93');opt=args.parse_args()
+    args=argparse.ArgumentParser();args.add_argument('emulator',type=Path);args.add_argument('--display',default=':93');args.add_argument('--bios-dir',type=Path,default=ROOT/'Downloads/melonDS-1.1-windows-x86_64');opt=args.parse_args()
     out=ROOT/'build/port-checks';out.mkdir(exist_ok=True)
     config=out/'config/melonDS';config.mkdir(parents=True,exist_ok=True)
-    src=ROOT/'Downloads/melonDS-1.1-windows-x86_64'
+    src=opt.bios_dir.resolve()
     for f in ['biosnds7.bin','biosnds9.bin','dsfirmware.bin']:shutil.copy2(src/f,config/f)
     (config/'melonDS.toml').write_text(f'''PauseLostFocus = false
 TargetFPS = 60.0
@@ -58,6 +58,8 @@ ExternalBIOSEnable = true
 BIOS7Path = "{config/'biosnds7.bin'}"
 BIOS9Path = "{config/'biosnds9.bin'}"
 FirmwarePath = "{config/'dsfirmware.bin'}"
+[JIT]
+Enable = false
 [3D]
 Renderer = 0
 [Screen]
@@ -92,7 +94,7 @@ ScreenGap = 0
     exe=opt.emulator.resolve();env=os.environ.copy();env.update(DISPLAY=opt.display,QT_QPA_PLATFORM='xcb',
        XDG_CONFIG_HOME=str(config.parent),SDL_AUDIODRIVER='disk',SDL_DISKAUDIOFILE=str(out/'audio.raw'),SDL_DISKAUDIODELAY='10')
     env['LD_LIBRARY_PATH']=str(exe.parent/'usr/lib');env['QT_QPA_PLATFORM_PLUGIN_PATH']=str(exe.parent/'usr/plugins')
-    nm=subprocess.check_output(['/opt/devkitpro/devkitARM/bin/arm-none-eabi-nm',str(ROOT/'coolpizza.elf')],text=True)
+    nm=subprocess.check_output(['/opt/devkitpro/devkitARM/bin/arm-none-eabi-nm',str(ROOT/'coolpizza-necromancy.elf')],text=True)
     address=int(next(l.split()[0] for l in nm.splitlines() if l.endswith(' b game')),16)
     render_address=int(next(l.split()[0] for l in nm.splitlines() if l.endswith(' b rendered_frames')),16)
     refresh_address=int(next(l.split()[0] for l in nm.splitlines() if l.endswith(' b vblank_ticks')),16)
@@ -101,7 +103,7 @@ ScreenGap = 0
     def run(*a):return subprocess.run(a,env=env,check=True,capture_output=True,text=True,timeout=10).stdout
     try:
         time.sleep(.4)
-        emu=subprocess.Popen([str(exe),str(ROOT/'coolpizza.nds')],env=env,cwd=out,stdout=(out/'emulator.log').open('w'),stderr=subprocess.STDOUT)
+        emu=subprocess.Popen([str(exe),str(ROOT/'coolpizza-necromancy.nds')],env=env,cwd=out,stdout=(out/'emulator.log').open('w'),stderr=subprocess.STDOUT)
         deadline=time.monotonic()+15;window=None
         while time.monotonic()<deadline:
             if emu.poll() is not None:raise RuntimeError('Emulator exited; inspect emulator.log')
@@ -111,7 +113,14 @@ ScreenGap = 0
         if not window:raise RuntimeError('No emulator window')
         run('xdotool','windowfocus',window);time.sleep(1)
         run('import','-window',window,str(out/'boot-before-debug.png'))
-        remote=Remote(3333)
+        deadline=time.monotonic()+10
+        while True:
+            try:
+                remote=Remote(3333)
+                break
+            except ConnectionRefusedError:
+                if time.monotonic()>=deadline:raise
+                time.sleep(.1)
         def state():
             raw=remote.read(address,layout['enemies']+layout['enemy_size']*8);d={}
             for k in ['phase','frame','wave','clock','score','combo','attack','clip','clip_tick','sounds','wave_count','wave_id']:
@@ -185,7 +194,7 @@ ScreenGap = 0
         final_audio=raw_audio.read_bytes();assert len(final_audio)>100000 and any(final_audio[-100000:])
         audio_bytes=len(final_audio)
         subprocess.run(['ffmpeg','-v','error','-y','-f','s16le','-ar','48000','-ac','2','-i',str(raw_audio),'-t','12',str(out/'emulated-audio.wav')],check=True)
-        report={'result':'passed','rom_sha256':hashlib.sha256((ROOT/'coolpizza.nds').read_bytes()).hexdigest(),
+        report={'result':'passed','rom_sha256':hashlib.sha256((ROOT/'coolpizza-necromancy.nds').read_bytes()).hexdigest(),
           'emulator':'melonDS 1.1 Linux','audio_bytes':audio_bytes,'airborne':airborne,'score_observed':scored,
           'simulation_ticks_per_second':measured_fps,'rendered_frames_per_second':render_fps,
           'emulated_refreshes_per_second':refresh_fps,'simulation_ticks_per_refresh':ticks_per_refresh,

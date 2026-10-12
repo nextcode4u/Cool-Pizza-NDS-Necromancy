@@ -1,7 +1,12 @@
 # Contributing
 
-Changes should preserve Cool Pizza's wave layouts, attack rhythm, scoring and
-visual style. Original game credits belong in [CREDITS.md](CREDITS.md).
+Cool Pizza: Necromancy welcomes gameplay changes, new content, performance
+improvements and DS-specific features. Describe changes to the gameplay baseline
+explicitly and update the relevant tests. Original game credits belong in
+[CREDITS.md](CREDITS.md).
+
+Changes aimed at reproducing the original iOS game also belong in the
+[faithful reconstruction](https://github.com/nextcode4u/Cool-Pizza-NDS-).
 
 ## Development
 

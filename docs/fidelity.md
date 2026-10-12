@@ -1,7 +1,7 @@
-# Gameplay and DS behavior
+# Gameplay baseline
 
-Cool Pizza DS follows the wave layouts and combat rules of the original iOS
-version 1.4. Gameplay runs on the top screen; the bottom screen shows wave,
+Cool Pizza: Necromancy starts with the wave layouts and combat rules of iOS
+version 1.4. This is the foundation for new content and gameplay changes. Gameplay runs on the top screen; the bottom screen shows wave,
 score and ghost-power information and accepts attack/power taps.
 
 ## Ramps and attacks
@@ -69,7 +69,7 @@ the ROM.
 
 ## Saving
 
-A writable FAT/DLDI filesystem enables `fat:/coolpizza.stats`, which stores the
+A writable FAT/DLDI filesystem enables `fat:/coolpizza-necromancy.stats`, which stores the
 best score and play count. Without writable storage, these values remain in
 memory until the game is closed. Play count determines the extra tutorial on
 the first three runs.
